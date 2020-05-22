@@ -1,0 +1,20 @@
+---
+- name: Install Google Cloud SDK
+  aur:
+    name: google-cloud-sdk
+    user: "{{ user.name }}"
+  tags:
+    - aur
+    - google-cloud
+
+- name: Install Kubectl
+  pacman:
+    name: kubectl
+  tags:
+    - k8s
+
+- name: Install Kubectx/Kubens
+  pacman:
+    name: kubectx
+  tags:
+    - k8s

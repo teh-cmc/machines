@@ -1,0 +1,15 @@
+---
+- name: Install Bazel (mostly for completion files, use Bazelisk)
+  pacman:
+    name: bazel
+  tags:
+    - bazel
+
+- name: Install Bazelisk
+  aur:
+    name: bazelisk
+    user: "{{ user.name }}"
+  tags:
+    - aur
+    - bazel
+

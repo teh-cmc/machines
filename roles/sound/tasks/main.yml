@@ -35,3 +35,8 @@
     src: pamute/pamute
     dest: /usr/local/bin/pamute
     mode: 0755
+
+- name: Add user to audio group
+  user: name={{ user.name }} groups=audio append=yes
+  tags:
+    - user

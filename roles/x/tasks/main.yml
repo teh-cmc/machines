@@ -20,6 +20,9 @@
 - name: Install xautomation
   pacman: name=xautomation state=present
 
+- name: Install xsetroot
+  pacman: name=xorg-xsetroot state=present
+
 - name: Install video driver(s)
   pacman:
     name: "{{ video_drivers }}"

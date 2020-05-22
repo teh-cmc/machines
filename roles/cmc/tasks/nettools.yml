@@ -1,0 +1,24 @@
+---
+- name: Install wrk
+  aur: name=wrk user={{ user.name }}
+  tags:
+    - aur
+    - wrk
+
+- name: Install wrk2
+  aur: name=wrk2-git user={{ user.name }}
+  tags:
+    - aur
+    - wrk2
+
+- name: Install Kafka CLI (kaf)
+  aur: name=kaf user={{ user.name }}
+  tags:
+    - aur
+    - kaf
+
+- name: Install pgcli
+  aur: name=pgcli user={{ user.name }}
+  tags:
+    - aur
+    - pgcli

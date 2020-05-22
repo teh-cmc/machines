@@ -1,0 +1,46 @@
+---
+- name: Install Neovim (Nightly)
+  aur:
+    name: neovim-nightly
+    user: "{{ user.name }}"
+  tags:
+    - aur
+    - neovim
+
+- name: Install VSCodium
+  aur:
+    name: vscodium-bin
+    user: "{{ user.name }}"
+  tags:
+    - aur
+    - vscodium
+
+- name: Install emacs
+  pacman:
+    name: emacs
+  tags:
+    - emacs
+
+- name: Install Diffr
+  aur:
+    name: diffr
+    user: "{{ user.name }}"
+  tags:
+    - aur
+    - diffr
+
+- name: Install Delta (git diff)
+  aur:
+    name: git-delta
+    user: "{{ user.name }}"
+  tags:
+    - aur
+    - git-delta
+
+- name: Install Broot
+  aur:
+    name: broot
+    user: "{{ user.name }}"
+  tags:
+    - aur
+    - broot

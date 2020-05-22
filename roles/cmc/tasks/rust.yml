@@ -1,0 +1,15 @@
+---
+- name: Install rustup
+  pacman: name=rustup state=present
+  tags:
+    - rust
+
+- name: Install cargo bash completion
+  shell: rustup completions bash cargo > /usr/share/bash-completion/completions/cargo
+  tags:
+    - rust
+
+- name: Install and enable default toolchain (stable)
+  shell: rustup install stable && rustup default stable
+  tags:
+    - rust

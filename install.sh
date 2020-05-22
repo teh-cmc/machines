@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
 ROLES=(
+    cmc
+
     archive
     aria2
     base
@@ -107,6 +109,7 @@ SKIPPED_TAGS=(
     texlive
     tor-browser
     undertime
+    zoom
 )
 
 echo "The following tags will run:"

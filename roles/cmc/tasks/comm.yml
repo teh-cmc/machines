@@ -1,0 +1,16 @@
+---
+- name: Install Slack
+  aur:
+    name: slack-desktop
+    user: "{{ user.name }}"
+  tags:
+    - aur
+    - slack
+
+- name: Install Zoom
+  aur:
+    name: zoom
+    user: "{{ user.name }}"
+  tags:
+    - aur
+    - zoom

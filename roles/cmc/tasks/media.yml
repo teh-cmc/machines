@@ -1,0 +1,8 @@
+---
+- name: Install VLC
+  pacman:
+    name:
+      - vlc
+    state: present
+  tags:
+    - vlc

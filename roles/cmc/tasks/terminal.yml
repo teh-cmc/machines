@@ -1,0 +1,24 @@
+---
+- name: Install alacritty
+  pacman: name=alacritty state=present
+  tags:
+    - alacritty
+
+- name: Install tmux
+  pacman: name=tmux state=present
+  tags:
+    - tmux
+
+- name: Clone tmux's package manager (TPM)
+  git: repo={{ tmux.tpm.url }} dest=/home/{{ user.name }}/{{ tmux.tpm.destination }} accept_hostkey=yes update=no
+  when: tmux.tpm is defined
+  become: yes
+  become_user: "{{ user.name }}"
+  tags:
+    - tmux
+    - tpm
+
+- name: Install xsel
+  pacman: name=xsel state=present
+  tags:
+    - xsel

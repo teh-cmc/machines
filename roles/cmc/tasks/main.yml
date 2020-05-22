@@ -1,0 +1,12 @@
+---
+- include: bazel.yml
+- include: comm.yml
+- include: docker.yml
+- include: editors.yml
+- include: k8s.yml
+- include: media.yml
+- include: nettools.yml
+- include: nodejs.yml
+- include: rust.yml
+- include: texttools.yml
+- include: terminal.yml

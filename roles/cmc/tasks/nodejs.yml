@@ -1,0 +1,10 @@
+---
+- name: Install nodejs
+  pacman: name=nodejs state=present
+  tags:
+    - nodejs
+
+- name: Install yarn
+  pacman: name=yarn state=present
+  tags:
+    - nodejs

@@ -23,6 +23,11 @@ aur:
         - miller
         - ctmg
 
+tmux:
+    tpm:
+        url: https://github.com/tmux-plugins/tpm.git
+        destination: .tmux/plugins/tpm
+
 ssh:
     port: 22
     user_key: /root/id_rsa
@@ -53,31 +58,48 @@ video_drivers:
 base_packages:
     - arch-wiki-docs
     - arch-wiki-lite
+    - base
     - base-devel
+    - bat
     - bc
+    - clang
+    - cmake
     - coreutils
     - cpulimit
     - dateutils
     - dmidecode
+    - exa
+    - fd
     - fwupd
     - fzf
     - git
+    - htop
+    - intel-ucode
     - jq
+    - llvm
+    - lsof
     - man-db
     - man-pages
     - minicom
     - moreutils
     - pacman-contrib
+    - perf
     - pv
+    - python2-docs
+    - python-docs
     - python-keyring
+    - python-pipenv
     - python-secretstorage
     - ranger
     - rsync
     - ruby
     - screen
+    - strace
+    - sysstat
     - termdown
+    - the_silver_searcher
     - tig
-    - tmux
+    - tree
 
 browser_choices:
     - firefox

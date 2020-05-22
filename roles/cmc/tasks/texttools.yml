@@ -1,0 +1,25 @@
+---
+- name: Install Diffr
+  aur:
+    name: diffr
+    user: "{{ user.name }}"
+  tags:
+    - aur
+    - diffr
+
+- name: Install Delta (git diff)
+  aur:
+    name: git-delta
+    user: "{{ user.name }}"
+  tags:
+    - aur
+    - git-delta
+
+- name: Install Broot
+  aur:
+    name: broot
+    user: "{{ user.name }}"
+  tags:
+    - aur
+    - broot
+
