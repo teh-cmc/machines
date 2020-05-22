@@ -1,18 +1,18 @@
 user:
-    name: pigmonkey
+    name: cmc
     uid: 1000
-    group: pigmonkey
-    shell: /usr/bin/zsh
-    email:  peter@havenaut.net
+    group: cmc
+    shell: /usr/bin/bash
+    email:  cr.rey.clement@gmail.com
     log:
         dir: log
         rotate: 8
 
-hostname: nous
+hostname: cmclaptop-I
 
 dotfiles:
-    url: git@github.com:pigmonkey/dotfiles.git
-    destination: projects/dotfiles
+    url: git@github.com:cmc/dotfiles.git
+    destination: dotfiles
     rcup_flags: -fx README.md
 
 aur:
@@ -20,9 +20,7 @@ aur:
     packages:
         - yay
         - downgrade
-        - zplug
         - miller
-        - myrepos
         - ctmg
 
 ssh:
@@ -44,63 +42,45 @@ mail:
     sync_on: trusted
 
 network:
-    spoof_mac: True
+    spoof_mac: False
     conn_check:
         interval: 0
     trusted_uuid:
-        - b21284e6-01af-492f-8bea-45a69ef22a23
-        - 4ddd6988-aad1-4927-b650-ea7d24e0138b
-        - f9b3c62c-2d9f-450a-ac9b-528ba4c85ded
-        - b94375d1-70f8-424f-a6d7-dc52d0ab7288
-        - f74f2bd5-8748-4e1e-98f9-dae2dd44b916
-        - faeec88c-79ec-4840-ab25-ea356af8a81b
-
-editors:
-    - gvim
 
 video_drivers:
     - libva-intel-driver
 
 base_packages:
+    - arch-wiki-docs
+    - arch-wiki-lite
     - base-devel
+    - bc
+    - coreutils
+    - cpulimit
+    - dateutils
+    - dmidecode
+    - fwupd
+    - fzf
+    - git
+    - jq
     - man-db
     - man-pages
-    - pacman-contrib
-    - fwupd
-    - dmidecode
-    - tmux
-    - git
-    - rsync
-    - coreutils
+    - minicom
     - moreutils
-    - dateutils
-    - bc
-    - ranger
-    - arch-wiki-lite
-    - arch-wiki-docs
+    - pacman-contrib
+    - pv
     - python-keyring
     - python-secretstorage
-    - tig
+    - ranger
+    - rsync
     - ruby
-    - pv
-    - minicom
-    - jq
     - screen
     - termdown
-    - fzf
-    - cpulimit
-
-filesystem_packages:
-    - dosfstools
-    - ntfs-3g
-    - exfat-utils
+    - tig
+    - tmux
 
 browser_choices:
-    - firefox -P default
-    - firefox -P work
-    - firewarden chromium
-    - firewarden -c qutebrowser
-    - tor-browser-en
+    - firefox
     - play
     - qcode
     - "| xclip -selection c"
@@ -122,10 +102,10 @@ bitlbee:
     run_on: trusted
     torify: True
 
-bootloader: grub
+bootloader: systemd-boot
 
 postgresql:
-    enable: True
+    enable: False
     root: /home/postgres
 
 fingerprint: False
@@ -169,38 +149,6 @@ firejail:
         - ~/.vdirsyncer
         - ~/library
 
-cryptshot:
-    - name: alta
-      uuid: 0a0db776-84c5-48e1-9079-cacfbc5de8a3
-      keyfile: /home/pigmonkey/.keys/usb-alta.key
-      retain:
-        - level: daily
-          interval: 7
-        - level: weekly
-          interval: 6
-        - level: monthly
-          interval: 3
-    - name: bishorn
-      uuid: baeb40a2-b19e-4adc-8ef6-44ee720a4d1a
-      keyfile: /home/pigmonkey/.keys/usb-bishorn.key
-      retain:
-        - level: daily
-          interval: 7
-        - level: weekly
-          interval: 6
-        - level: monthly
-          interval: 3
-    - name: pilchuck
-      uuid: d96a0fc3-7ea1-42f7-b0d0-42e573c478bd
-      keyfile: /home/pigmonkey/.keys/usb-pilchuck.key
-      retain:
-        - level: daily
-          interval: 7
-        - level: weekly
-          interval: 6
-        - level: monthly
-          interval: 3
-
 journal:
     max_size: 500M
 
@@ -223,53 +171,8 @@ goesimage:
     run_on: trusted
     flags: -w -e
 
-libinput:
-    middle_click_scroll: 12
-    button_mapping: "1 2 3 4 5 6 7 8 9 10 11 2"
-
 display_manager: lightdm
-gdm:
-    sound: False
-    font_scaling_factor: 1
-    logo_path: False
-    touchpad:
-        tap_to_click: True
-    accessibility_menu: True
-
-desktop_environment: i3
-gnome:
-    night_light:
-        enabled: True
-        color_temperature: 4000 # in Kelvin
-    date_time:
-        show_date_in_clock: True
-        show_weeks_in_calendar: True
-    battery:
-        show_percentage: True
-    power:
-        sleep_timeout_when_computer_on_ac: 3600 # in seconds
-        timeout_action_when_computer_on_ac: suspend
-        sleep_timeout_when_computer_on_battery: 1800 # in seconds
-        timeout_action_when_computer_on_battery: suspend
-        power_button_action: suspend
-    touchpad:
-        tap_to_click: True
-        natural_scrolling: True
-        disabled_while_typing: True
-    online_accounts_support: True
-    lock_screen:
-        automatic_lock: True
-        lock_screen_after_blank_for: 0 # in seconds
-        show_notifications: True
-        show_full_name_of_user: True
-    theme:
-        theme_name: Adwaita
-        icon_theme_name: Adwaita
-        font_name: Dejavu Sans 13
-        dark_variant: True
-    gnome_shell:
-        disable_top_left_hot_corner: False
-        extensions_support: True
+window_manager: i3
 
 base_fonts:
     - adobe-source-code-pro-fonts
@@ -317,4 +220,4 @@ pkgfile:
 hardened:
     enable_namespaces: true
 
-kernel_parameters: "quiet consoleblank=60"
+kernel_parameters: "root=/dev/logicencroot/OS resume=/dev/logicencroot/SWAP rd.luks.name=2530c9f3-5302-42f7-bcc7-94d0f1999221=encroot rd.luks.options=timeout=0 rd.luks.options=discard rootflags=x-systemd.device-timeout=0 quiet splash acpi_rev_override=1"

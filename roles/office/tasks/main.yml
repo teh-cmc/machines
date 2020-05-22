@@ -3,6 +3,8 @@
   pacman:
     name: libreoffice-fresh
     state: present
+  tags:
+    - libreoffice
 
 - name: Jail LibreOffice
   file:
@@ -10,6 +12,7 @@
     dest: /usr/local/bin/libreoffice
     state: link
   tags:
+    - libreoffice
     - firejail
 
 - name: Verify LibreOffice firejail local profile exists
@@ -17,6 +20,7 @@
     path: /etc/firejail/libreoffice.local
     state: touch
   tags:
+    - libreoffice
     - firejail
 
 - name: Restrict LibreOffice network access
@@ -25,6 +29,7 @@
     regexp: "^net"
     line: "net none"
   tags:
+    - libreoffice
     - firejail
 
 - name: Restrict LibreOffice access to /etc
@@ -33,17 +38,22 @@
     regexp: "^private-etc"
     line: "private-etc firejail,libreoffice,fonts,passwd"
   tags:
+    - libreoffice
     - firejail
 
 - name: Install enscript
   pacman:
     name: enscript
     state: present
+  tags:
+    - enscript
 
 - name: Install Simple Scan
   pacman:
     name: simple-scan
     state: present
+  tags:
+    - simplescan
 
 - name: Install pandoc and dependencies
   pacman:
@@ -51,21 +61,29 @@
       - pandoc
       - pandoc-citeproc
     state: present
+  tags:
+    - pandoc
 
 - name: Install texlive-core
   pacman:
     name: texlive-core
     state: present
+  tags:
+    - texlive
 
 - name: Install texlive-latexextra
   pacman:
     name: texlive-latexextra
     state: present
+  tags:
+    - texlive
 
 - name: Install qalculate
   pacman:
     name: qalculate-gtk
     state: present
+  tags:
+    - qalculate
 
 - name: Install undertime and dependencies
   aur:
@@ -74,16 +92,20 @@
       - python-undertime
     user: "{{ user.name }}"
   tags:
+    - undertime
     - aur
 
 - name: Install GNU Plot
   pacman:
     name: gnuplot
     state: present
+  tags:
+    - gnuplot
 
 - name: Install xsv
   aur:
     name: xsv
     user: "{{ user.name }}"
   tags:
+    - xsv
     - aur
