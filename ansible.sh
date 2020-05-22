@@ -47,7 +47,7 @@ ROLES=(
     # aws
     # backitup
     # bitlbee
-    # bluetooth
+    # bluetooth ## TODO(cmc): at some point
     # cryptshot
     # dictd
     # editors
@@ -71,7 +71,7 @@ ROLES=(
     # openresolv
     # optical
     # parcimonie
-    # pass ## TODO(cmc): esp. the rofi part
+    # pass ## TODO(cmc): asap (1pw), esp. the rofi part
     # pdf
     # pianobar
     # pim
