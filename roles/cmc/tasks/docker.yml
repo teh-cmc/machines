@@ -18,3 +18,12 @@
   tags:
     - user
     - docker
+
+- name: Push Docker daemon config
+  copy:
+    src: docker/daemon.conf
+    dest: /etc/docker/
+  notify:
+    - restart docker
+  tags:
+    - docker

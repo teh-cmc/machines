@@ -18,15 +18,6 @@
     name: "{{ hostname }}"
   when: hostname is defined
 
-- name: Set kernel parameters
-  lineinfile: "dest=/boot/loader/entries/arch.conf
-              regexp=^options
-              state=present
-              line='options \"{{ kernel_parameters }}\"'"
-  when: kernel_parameters is defined and bootloader == 'systemd-boot'
-  tags:
-    - kernelparams
-
 - include: shell.yml
 - include: user.yml
 - include: sudo.yml

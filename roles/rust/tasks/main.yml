@@ -11,5 +11,6 @@
 
 - name: Install and enable default toolchain (stable)
   shell: rustup install stable && rustup default stable
+  become_user: "{{ user.name }}"
   tags:
     - rust

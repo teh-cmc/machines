@@ -1,101 +1,81 @@
 #!/usr/bin/env bash
 
-ROLES=(
-    cmc
+# Edit as needed.
 
-    archive
-    aria2
+MANDATORY_ROLES=(
+    ## Bootstrap
     base
+    cron
+    firejail
+
+    ## Network
+    nettools
+    networkmanager
+    unbound
+    openresolv
+    hostsctl
+    nmtrust
+    ssh
+
+    ## Hardware (common)
+    archive
+    gnupg
+    sysmon
+
+    ## Important system daemons
+    mirrorlist
+    ntp
+)
+OPTIN_ROLES=(
+    ## Bootstrap
+    microcode
+
+    ## Hardware (common)
+    cups
+    sound
+    ssd
+
+    ## Hardware (dedicated)
+    laptop
+
+    ## Toolchains
+    golang
+    nodejs
+    pydev
+    rust
+
+    ## X session
+    x
+    i3
+    lightdm
+    fonts
+    redshift
+    screensaver
+
+    ## Custom
+    cmc
+    # dotfiles
+
+    ## Everything else
+    aria2
     borg
     browsers
     calibre
-    cron
-    cups
-    dotfiles
-    firejail
-    fonts
-    gnupg
     himawaripy
-    hostsctl
-    i3
-    laptop
-    lightdm
     media
-    microcode
-    mirrorlist
-    nettools
-    networkmanager
-    nmtrust
-    ntp
     office
     pkgfile
-    postgresql
-    pydev
     ripgrep
-    screensaver
-    sound
-    ssd
-    ssh
-    sysmon
     virtualbox
     virtualenv
     visidata
     wttr
-    x
-
-    # android
-    # aws
-    # backitup
-    # bitlbee
-    # bluetooth ## TODO(cmc): at some point
-    # cryptshot
-    # dictd
-    # editors
-    # filesystems
-    # gdm
-    # git-annex
-    # gnome
-    # goesimage
-    # hardened
-    # hashicorp
-    # iptables
-    # ledger
-    # localtime
-    # logitech
-    # macbook
-    # macchiato
-    # mail
-    # mapping
-    # mpd
-    # mpv
-    # openresolv
-    # optical
-    # parcimonie
-    # pass ## TODO(cmc): asap (1pw), esp. the rofi part
-    # pdf
-    # pianobar
-    # pim
-    # radio
-    # rtorrent
-    # spell
-    # syncthing
-    # tarsnap
-    # taskwarrior
-    # thinkpad
-    # tor
-    # udisks
-    # unbound ## TODO(cmc): maybe at one point though
-    # units
-    # weechat
-    # wormhole
-    # yubikey ## TODO(cmc): maybe at one point though
 )
-SKIPPED_TAGS=(
+OPTOUT_TAGS=(
     abcde
-    autocutsel
+    bazel
     beets
     enscript
-    gimp
     gthumb
     inkscape
     libreoffice
@@ -113,19 +93,19 @@ SKIPPED_TAGS=(
 )
 
 echo "The following tags will run:"
-ansible-playbook                                     \
-    -i localhost                                     \
-    --tags $(IFS=, ; echo "${ROLES[*]}")             \
-    --skip-tags $(IFS=, ; echo "${SKIPPED_TAGS[*]}") \
-    --list-tags                                      \
+ansible-playbook                                                                       \
+    -i localhost                                                                       \
+    --tags $(IFS=, ; echo "${MANDATORY_ROLES[*]}"),$(IFS=, ; echo "${OPTIN_ROLES[*]}") \
+    --skip-tags $(IFS=, ; echo "${OPTOUT_TAGS[*]}")                                    \
+    --list-tags                                                                        \
     playbook.yml
 
 read -r -p "Are you sure? [y/N] " response
 response=${response,,}
 if [[ "$response" =~ ^(yes|y)$ ]]; then
-    ansible-playbook                                     \
-        -i localhost                                     \
-        --tags $(IFS=, ; echo "${ROLES[*]}")             \
-        --skip-tags $(IFS=, ; echo "${SKIPPED_TAGS[*]}") \
+    ansible-playbook                                    \
+        -i localhost                                    \
+        --tags $(IFS=, ; echo "${OPTIN_ROLES[*]}")      \
+        --skip-tags $(IFS=, ; echo "${OPTOUT_TAGS[*]}") \
         playbook.yml
 fi

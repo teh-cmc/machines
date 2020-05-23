@@ -2,57 +2,87 @@
 - hosts: localhost
   become: yes
   roles:
-    - { role: android, tags: ['android'] }
+    ## 0. Bootstrap
+    - { role: base, tags: ['base'] }
+    - { role: hardened, tags: ['hardened'] }
+    - { role: microcode, tags: ['microcode'], when: "'GenuineIntel' in ansible_processor" }
+    - { role: cron, tags: ['cron'] }
+    - { role: filesystems, tags: ['filesystems'] }
+    - { role: firejail, tags: ['firejail'] }
+
+    ## 1. Network
+    - { role: iptables, tags: ['iptables'] }
+    - { role: nettools, tags: ['nettools'] }
+    - { role: networkmanager, tags: ['networkmanager'] }
+    - { role: unbound, tags: ['unbound'] }
+    - { role: openresolv, tags: ['openresolv'] }
+    - { role: hostsctl, tags: ['hostsctl'], when: "hostsctl is defined" }
+    - { role: nmtrust, tags: ['nmtrust'] }
+    - { role: ssh, tags: ['ssh'] }
+
+    ## 2.a. Hardware (common)
+    - { role: ssd, tags: ['ssd'] }
+    - { role: bluetooth, tags: ['bluetooth'], when: "bluetooth is defined" }
+    - { role: sound, tags: ['sound'] }
+    - { role: cups, tags: ['cups'] }
+    - { role: sysmon, tags: ['sysmon'] }
+
+    ## 2.b. Hardware (dedicated)
+    - { role: laptop, tags: ['laptop'] }
+    - { role: macbook, tags: ['macbook'], when: "'MacBook' in ansible_product_name" }
+    - { role: thinkpad, tags: ['thinkpad'], when: "'ThinkPad' in ansible_product_version" }
+
+    ## 3. Toolchains
     - { role: archive, tags: ['archive'] }
+    - { role: android, tags: ['android'] }
+    - { role: golang, tags: ['golang'] }
+    - { role: rust, tags: ['rust'] }
+    - { role: nodejs, tags: ['nodejs'] }
+    - { role: pydev, tags: ['pydev'] }
+    - { role: gnupg, tags: ['gnupg'] }
+
+    ## 4. Important system daemons
+    - { role: mirrorlist, tags: ['mirrorlist'], when: "mirrorlist is defined" }
+    - { role: ntp, tags: ['ntp'] }
+
+    ## 5. X session
+    - { role: x, tags: ['x'] }
+    - { role: i3, tags: ['i3'], when: "desktop_environment == 'i3'" }
+    - { role: lightdm, tags: ['lightdm'], when: "display_manager == 'lightdm'" }
+    - { role: gdm, tags: ['gdm'], when: "display_manager == 'gdm'" }
+    - { role: gnome, tags: ['gnome'], when: "desktop_environment == 'gnome'" }
+    - { role: fonts, tags: ['fonts'] }
+    - { role: redshift, tags: ['redshift'] }
+    - { role: screensaver, tags: ['screensaver'] }
+
+    ## 6. Custom
+    - { role: dotfiles, tags: ['dotfiles'] }
+    - { role: cmc, tags: ['cmc'] }
+
+    ## 7. Everything else
     - { role: aria2, tags: ['aria2'] }
     - { role: aws, tags: ['aws'] }
     - { role: backitup, tags: ['backitup'] }
-    - { role: base, tags: ['base'] }
     - { role: bitlbee, tags: ['bitlbee'] }
-    - { role: bluetooth, tags: ['bluetooth'], when: "bluetooth is defined" }
     - { role: borg, tags: ['borg'] }
     - { role: browsers, tags: ['browsers'] }
     - { role: calibre, tags: ['calibre'] }
-    - { role: cron, tags: ['cron'] }
     - { role: cryptshot, tags: ['cryptshot'], when: "cryptshot is defined" }
-    - { role: cups, tags: ['cups'] }
     - { role: dictd, tags: ['dictd'] }
-    - { role: dotfiles, tags: ['dotfiles'] }
     - { role: editors, tags: ['editors'] }
-    - { role: filesystems, tags: ['filesystems'] }
-    - { role: firejail, tags: ['firejail'] }
-    - { role: fonts, tags: ['fonts'] }
-    - { role: gdm, tags: ['gdm'], when: "display_manager == 'gdm'" }
     - { role: git-annex, tags: ['git-annex'], when: "gitannex is defined" }
-    - { role: gnome, tags: ['gnome'], when: "desktop_environment == 'gnome'" }
-    - { role: gnupg, tags: ['gnupg'] }
     - { role: goesimage, tags: ['goesimage'], when: "goesimage is defined" }
-    - { role: hardened, tags: ['hardened'] }
     - { role: hashicorp, tags: ['hashicorp'] }
     - { role: himawaripy, tags: ['himawaripy'], when: "himawaripy is defined" }
-    - { role: hostsctl, tags: ['hostsctl'], when: "hostsctl is defined" }
-    - { role: i3, tags: ['i3'], when: "desktop_environment == 'i3'" }
-    - { role: iptables, tags: ['iptables'] }
-    - { role: laptop, tags: ['laptop'] }
     - { role: ledger, tags: ['ledger'] }
-    - { role: lightdm, tags: ['lightdm'], when: "display_manager == 'lightdm'" }
-    - { role: localtime, tags: ['localtime'], when: "localtime is defined" }
     - { role: logitech, tags: ['logitech'] }
-    - { role: macbook, tags: ['macbook'], when: "'MacBook' in ansible_product_name" }
     - { role: macchiato, tags: ['macchiato'] }
     - { role: mail, tags: ['mail'] }
     - { role: mapping, tags: ['mapping'] }
     - { role: media, tags: ['media'] }
-    - { role: microcode, tags: ['microcode'], when: "'GenuineIntel' in ansible_processor" }
-    - { role: mirrorlist, tags: ['mirrorlist'], when: "mirrorlist is defined" }
     - { role: mpd, tags: ['mpd'] }
     - { role: mpv, tags: ['mpv'] }
-    - { role: nettools, tags: ['nettools'] }
-    - { role: networkmanager, tags: ['networkmanager'] }
-    - { role: nmtrust, tags: ['nmtrust'] }
-    - { role: ntp, tags: ['ntp'] }
     - { role: office, tags: ['office'] }
-    - { role: openresolv, tags: ['openresolv'] }
     - { role: optical, tags: ['optical'] }
     - { role: parcimonie, tags: ['parcimonie'], when: "tor is defined" }
     - { role: pass, tags: ['pass'] }
@@ -61,25 +91,16 @@
     - { role: pim, tags: ['pim'] }
     - { role: pkgfile, tags: ['pkgfile'], when: "pkgfile is defined" }
     - { role: postgresql, tags: ['postgresql'] }
-    - { role: pydev, tags: ['pydev'] }
     - { role: radio, tags: ['radio'] }
-    - { role: redshift, tags: ['redshift'] }
     - { role: ripgrep, tags: ['ripgrep'] }
     - { role: rtorrent, tags: ['rtorrent'] }
-    - { role: screensaver, tags: ['screensaver'] }
     - { role: signal, tags: ['signal'] }
-    - { role: sound, tags: ['sound'] }
     - { role: spell, tags: ['spell'] }
-    - { role: ssd, tags: ['ssd'] }
-    - { role: ssh, tags: ['ssh'] }
     - { role: syncthing, tags: ['syncthing'], when: "syncthing is defined" }
-    - { role: sysmon, tags: ['sysmon'] }
     - { role: tarsnap, tags: ['tarsnap'] }
     - { role: taskwarrior, tags: ['taskwarrior'] }
-    - { role: thinkpad, tags: ['thinkpad'], when: "'ThinkPad' in ansible_product_version" }
     - { role: tor, tags: ['tor'], when: "tor is defined" }
     - { role: udisks, tags: ['udisks'] }
-    - { role: unbound, tags: ['unbound'] }
     - { role: units, tags: ['units'], when: "units is defined" }
     - { role: virtualbox, tags: ['virtualbox'] }
     - { role: virtualenv, tags: ['virtualenv'] }
@@ -87,7 +108,6 @@
     - { role: weechat, tags: ['weechat'] }
     - { role: wormhole, tags: ['wormhole'] }
     - { role: wttr, tags: ['wttr'] }
-    - { role: x, tags: ['x'] }
     - { role: yubikey, tags: ['yubikey'] }
   vars_prompt:
     - name: user_password

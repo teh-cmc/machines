@@ -23,6 +23,9 @@ aur:
         - miller
         - ctmg
 
+ssd:
+    trim: True
+
 tmux:
     tpm:
         url: https://github.com/tmux-plugins/tpm.git
@@ -30,7 +33,6 @@ tmux:
 
 ssh:
     port: 22
-    user_key: /root/id_rsa
     enable_sshd: False
 
 gnupg:
@@ -74,7 +76,6 @@ base_packages:
     - fzf
     - git
     - htop
-    - intel-ucode
     - jq
     - llvm
     - lsof
@@ -85,10 +86,7 @@ base_packages:
     - pacman-contrib
     - perf
     - pv
-    - python2-docs
-    - python-docs
     - python-keyring
-    - python-pipenv
     - python-secretstorage
     - ranger
     - rsync
@@ -194,7 +192,7 @@ goesimage:
     flags: -w -e
 
 display_manager: lightdm
-window_manager: i3
+desktop_environment: i3
 
 base_fonts:
     - adobe-source-code-pro-fonts
@@ -215,7 +213,6 @@ base_fonts:
     - ttf-ubuntu-font-family
 
 aur_fonts:
-    - ttf-bitstream-charter
     - ttf-cooper-hewitt
     - ttf-courier-prime
     - ttf-heuristica
@@ -224,7 +221,6 @@ aur_fonts:
     - ttf-oswald
     - ttf-quintessential
     - ttf-signika
-    - otf-symbola
 
 syncthing:
     run_on: trusted
@@ -241,5 +237,3 @@ pkgfile:
 
 hardened:
     enable_namespaces: true
-
-kernel_parameters: "root=/dev/logicencroot/OS resume=/dev/logicencroot/SWAP rd.luks.name=2530c9f3-5302-42f7-bcc7-94d0f1999221=encroot rd.luks.options=timeout=0 rd.luks.options=discard rootflags=x-systemd.device-timeout=0 quiet splash acpi_rev_override=1"
