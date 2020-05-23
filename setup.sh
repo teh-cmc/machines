@@ -51,13 +51,12 @@ pacstrap -i /mnt \
     dialog \
     efibootmgr \
     git \
-    grub \
     intel-ucode \
     linux \
     linux-firmware \
     lvm2 \
     net-tools \
-    vi \
+    vim \
     wireless_tools \
     wpa_supplicant \
 
