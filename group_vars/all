@@ -2,7 +2,7 @@ user:
     name: cmc
     uid: 1000
     group: cmc
-    shell: /usr/bin/bash
+    shell: /bin/bash
     email:  cr.rey.clement@gmail.com
     log:
         dir: log
