@@ -21,7 +21,7 @@
 
 - name: Push Docker daemon config
   copy:
-    src: docker/daemon.conf
+    src: docker/daemon.json
     dest: /etc/docker/
   notify:
     - restart docker
