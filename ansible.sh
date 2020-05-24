@@ -4,6 +4,7 @@
 
 MANDATORY_ROLES=(
     ## Bootstrap
+    systemd
     base
     cron
     firejail
@@ -90,6 +91,9 @@ OPTOUT_TAGS=(
     tor-browser
     undertime
     zoom
+    pgcli
+    microcode
+    himawaripy
 )
 
 echo "The following tags will run:"

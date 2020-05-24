@@ -11,9 +11,9 @@ user:
 hostname: cmclaptop-I
 
 dotfiles:
-    url: git@github.com:cmc/dotfiles.git
-    destination: dotfiles
-    rcup_flags: -fx README.md
+    url: https://github.com/teh-cmc/dotfiles
+    destination: dev/teh-cmc/dotfiles
+    rcup_flags: ""
 
 aur:
     dir: aur
@@ -53,6 +53,8 @@ network:
     conn_check:
         interval: 0
     trusted_uuid:
+        - 0b13abc4-09ea-4375-9406-cde14eb9fbde # wlp59s0
+        - 79fc2754-ef43-4d02-8eac-060dd5be91ae # docker0
 
 video_drivers:
     - libva-intel-driver
