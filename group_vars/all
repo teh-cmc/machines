@@ -80,6 +80,7 @@ base_packages:
     - htop
     - jq
     - llvm
+    - lld
     - lsof
     - man-db
     - man-pages
